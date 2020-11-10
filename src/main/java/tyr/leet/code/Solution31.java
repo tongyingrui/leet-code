@@ -14,26 +14,29 @@ public class Solution31 {
         }
       }
       if (targetStart == -1) {
-        int start = 0, end = nums.length - 1;
-        while (end > start) {
-          int tmp = nums[start];
-          nums[start] = nums[end];
-          nums[end] = tmp;
-          start++;
-          end--;
-        }
+        reverse(nums, 0, nums.length - 1);
       } else {
         int ceilingIndex = targetStart + 1;
         for (int i = targetStart + 2; i < nums.length; i++) {
-          if (nums[i] > nums[targetStart] && nums[i] < nums[ceilingIndex]) {
+          if (nums[i] > nums[targetStart] && nums[i] <= nums[ceilingIndex]) {
             ceilingIndex = i;
           }
         }
         int tmp = nums[ceilingIndex];
         nums[ceilingIndex] = nums[targetStart];
         nums[targetStart] = tmp;
-        Arrays.sort(nums, targetStart + 1, nums.length);
+        reverse(nums, targetStart + 1, nums.length - 1);
       }
+    }
+  }
+
+  private void reverse(int[] nums, int start, int end) {
+    while (start < end) {
+      int tmp = nums[start];
+      nums[start] = nums[end];
+      nums[end] = tmp;
+      start++;
+      end--;
     }
   }
 
