@@ -36,15 +36,6 @@ public class Solution406 {
       SegmentTree tree = new SegmentTree(ret.length);
       for (int[] peo : people) {
         ret[tree.insert(peo[1])] = peo;
-//        int count = 0;
-//        for (int i = 0; i < ret.length; i++) {
-//          if (ret[i] == null) {
-//            if (count++ == peo[1]) {
-//              ret[i] = peo;
-//              break;
-//            }
-//          }
-//        }
       }
       return ret;
     }
