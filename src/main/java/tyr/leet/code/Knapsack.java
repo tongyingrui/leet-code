@@ -36,7 +36,7 @@ public class Knapsack {
           } else {
             if (remainCapacity >= 0) {
               Stuffs withCurrent = cache[i + 1][remainCapacity].add(stuffs[i]);
-              if (withCurrent.value() > cache[i + 1][c].value()) {
+              if (withCurrent.getTotalValue() > cache[i + 1][c].getTotalValue()) {
                 cache[i][c] = withCurrent;
               } else {
                 cache[i][c] = cache[i + 1][c];
@@ -55,19 +55,23 @@ public class Knapsack {
 
   static class Stuffs {
 
+    final int totalValue;
     final List<Stuff> values;
 
     public Stuffs() {
       values = new ArrayList<>();
+      totalValue = 0;
     }
 
     public Stuffs(Stuff stuff) {
       values = new ArrayList<>();
       values.add(stuff);
+      totalValue = calculateTotalValue();
     }
 
     public Stuffs(List<Stuff> stuffs) {
       this.values = stuffs;
+      this.totalValue = calculateTotalValue();
     }
 
     public Stuffs add(Stuff stuff) {
@@ -77,7 +81,11 @@ public class Knapsack {
       return new Stuffs(newList);
     }
 
-    public int value() {
+    public int getTotalValue() {
+      return totalValue;
+    }
+
+    private int calculateTotalValue() {
       int sum = 0;
       for (Stuff value : values) {
         sum += value.value;
